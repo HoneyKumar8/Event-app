@@ -1,12 +1,11 @@
 import axios from "axios";
 
-// Create Axios instance
-const axiosInstance = axios.create({
-  baseURL: "http://localhost:5000/api", // adjust if your backend URL differs
+const instance = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
 });
 
-// ✅ REQUEST INTERCEPTOR (Attach Token Automatically)
-axiosInstance.interceptors.request.use(
+// ✅ Attach token automatically
+instance.interceptors.request.use(
   (config) => {
     const storedUser = localStorage.getItem("user");
 
@@ -23,11 +22,10 @@ axiosInstance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Optional: Response interceptor (future-ready)
-axiosInstance.interceptors.response.use(
+// ✅ Auto logout if token expired
+instance.interceptors.response.use(
   (response) => response,
   (error) => {
-    // Auto logout if token expired (optional enhancement)
     if (error.response?.status === 401) {
       localStorage.removeItem("user");
       window.location.href = "/login";
@@ -36,4 +34,4 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-export default axiosInstance;
+export default instance;
