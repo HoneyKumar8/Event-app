@@ -1,0 +1,28 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Environment variables
+.env
+
+# Logs
+logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build folders
+client/dist
+server/dist
+
+# Vite
+client/.vite
+
+# Coverage
+coverage/
+
+# IDE
+.vscode/
